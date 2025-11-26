@@ -1,51 +1,117 @@
-// Topic 1: Interfaces
-// Task T1.1 BasicShapes (обязательная)
-// В этом файле описан интерфейс IShape и заготовки классов фигур.
-// Ваша задача — реализовать проверки, свойства и методы согласно README.
+sing System;
+using System.Collections.Generic;
 
-namespace App.Topics.Interfaces.T1_1_BasicShapes;
-
-interface IShape
+namespace App.Topics.Interfaces.T1_1_BasicShapes
 {
-    string Name { get; }
-    double Area();
+    // T1.1 BasicShapes - базовый интерфейс и его реализации
+    public interface IShape
+    {
+        string Name { get; }
+        double Area();
+    }
+
+    public class Rectangle : IShape
+    {
+        private double _width;
+        private double _height;
+
+        public Rectangle(double width, double height)
+        {
+            Width = width;
+            Height = height;
+        }
+
+        public double Width
+        {
+            get => _width;
+            private set
+            {
+                if (value <= 0)
+                    throw new ArgumentOutOfRangeException(nameof(value), "Width must be greater than 0");
+                _width = value;
+            }
+        }
+
+        public double Height
+        {
+            get => _height;
+            private set
+            {
+                if (value <= 0)
+                    throw new ArgumentOutOfRangeException(nameof(value), "Height must be greater than 0");
+                _height = value;
+            }
+        }
+
+        public string Name => "Rectangle";
+
+        public double Area()
+        {
+            return Width * Height;
+        }
+    }
+
+    public class Circle : IShape
+    {
+        private double _radius;
+
+        public Circle(double radius)
+        {
+            Radius = radius;
+        }
+
+        public double Radius
+        {
+            get => _radius;
+            private set
+            {
+                if (value <= 0)
+                    throw new ArgumentOutOfRangeException(nameof(value), "Radius must be greater than 0");
+                _radius = value;
+            }
+        }
+
+        public string Name => "Circle";
+
+        public double Area()
+        {
+            return Math.PI * Radius * Radius;
+        }
+    }
 }
 
-public class Rectangle : IShape
+namespace App.Topics.Interfaces.T1_2_CompositeLogger
 {
-    public double Width { get; }
-    public double Height { get; }
-    public string Name { get; }
-    public double Area()
+    // T1.2 CompositeLogger - интерфейс и классы (заглушки)
+    public interface ILogger
     {
-        return this.Width * this.Height;
+        void Log(string message);
+        IEnumerable<string> GetLogs();
     }
-    public Rectangle(double width, double height)
+
+    public class MemoryLogger : ILogger
     {
-        if (!(width > 0) || !(height > 0))
+        public void Log(string message)
         {
-            throw new ArgumentOutOfRangeException();
+            throw new NotImplementedException();
         }
-        this.Name = "Rectangle";
-        this.Width = width;
-        this.Height = height;
-    }
-}
-public class Circle : IShape
-{
-    public double Radius { get; }
-    public string Name { get; }
-    public double Area()
-    {
-        return Math.PI * Radius * Radius;
-    }
-    public Circle(double radius)
-    {
-        if (!(radius > 0))
+
+        public IEnumerable<string> GetLogs()
         {
-            throw new ArgumentOutOfRangeException();
+            throw new NotImplementedException();
         }
-        this.Name = "Circle";
-        this.Radius = radius;
+    }
+
+    public class CompositeLogger : ILogger
+    {
+        public void Log(string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<string> GetLogs()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
